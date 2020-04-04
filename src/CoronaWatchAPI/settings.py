@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # CoronaWatch API Apps
+    'users.apps.UsersConfig',
+    'feeds.apps.FeedsConfig',
+    'reports.apps.ReportsConfig',
+    'geolocation.apps.GeolocationConfig',
+    'scrapers.apps.ScrapersConfig',
+    'attachments.apps.AttachmentsConfig',
 ]
 
 MIDDLEWARE = [
@@ -103,6 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# The user model of our system
+AUTH_USER_MODEL = 'users.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
