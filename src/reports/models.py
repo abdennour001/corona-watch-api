@@ -12,9 +12,8 @@ class SuspectedCase(models.Model):
 
 
 class Declared(models.Model):
-    weight = models.FloatField()
-    temperature = models.FloatField()
-    is_suspect = models.BooleanField()
+    date_declaration = models.DateTimeField(auto_now_add=True)
+    id_treated = models.DateTimeField()
 
     def __str__(self):
-        return "%s (Kg), %s (C), %s" % (self.weight, self.temperature, self.is_suspect)
+        return "#%d, %s" % (self.pk, self.date_declaration)

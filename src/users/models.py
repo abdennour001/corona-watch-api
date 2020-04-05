@@ -22,3 +22,12 @@ class User(AbstractUser):
 
     def __str__(self):
         super(User, self).__str__()
+
+
+class MedicalProfile(models.Model):
+    weight = models.FloatField()
+    temperature = models.FloatField()
+    is_suspect = models.BooleanField()
+
+    def __str__(self):
+        return "%s (Kg), %s (C), %s" % (self.weight, self.temperature, self.is_suspect)
