@@ -19,10 +19,10 @@ class User(AbstractUser):
         choices=ROLE,
         default='final user'
     )
-    image_url = models.URLField(default=None)
+    image_url = models.URLField(default=None, null=True, blank=True)
 
     def __str__(self):
-        super(User, self).__str__()
+        return super().__str__()
 
 
 class MedicalProfile(models.Model):

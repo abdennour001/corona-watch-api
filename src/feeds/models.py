@@ -14,12 +14,12 @@ class Publication(models.Model):
     is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
-        return "%d, %s, %s" % (self.pk, self.title, self.publication_date)
+        return "%d, %s, %s" % (self.pk, self.title, self.publication_date.date())
 
 
 class Article(Publication):
     """
-
+    Article Model.
     """
 
     content = models.TextField()
@@ -31,7 +31,11 @@ class Article(Publication):
     editor = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
-        super(Article, self).__str__()
+        return super().__str__()
+
+    @property
+    def owner(self):
+        return self.editor
 
 
 class Video(Publication):
@@ -49,7 +53,11 @@ class Video(Publication):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
-        super(Video, self).__str__()
+        return super().__str__()
+
+    @property
+    def owner(self):
+        return self.user
 
 
 class Comment(models.Model):
@@ -69,3 +77,7 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['comment_date']
+
+    @property
+    def owner(self):
+        return self.user
