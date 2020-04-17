@@ -2,14 +2,19 @@
 
 from django.db.models import Q
 from rest_framework import generics
-from feeds.models import Article, Video, Comment
+from ..models import Article, Video, Comment, Publication
 from .serializers import ArticleSerializer, VideoSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly
+from django.shortcuts import get_object_or_404
 
 
 class ArticleCreateView(generics.ListCreateAPIView):
     """
-    Generic API View : Create Article.
+        get:
+        Return a list of all existing articles.
+
+        post:
+        Create an new article.
     """
     lookup_field = 'id'
     serializer_class = ArticleSerializer
@@ -30,12 +35,18 @@ class ArticleCreateView(generics.ListCreateAPIView):
 
 class ArticleRUDView(generics.RetrieveUpdateDestroyAPIView):
     """
-    Generic API View for : Retrieve, Update and Destroy Articles.
+        get:
+        Return the specific article.
+
+        put:
+        Update the specific article.
+
+        delete:
+        Delete the specific article.
     """
     lookup_field = 'id'
     serializer_class = ArticleSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    # queryset = Article.objects.all()
 
     # override base methods
     def get_queryset(self):
@@ -48,7 +59,11 @@ class ArticleRUDView(generics.RetrieveUpdateDestroyAPIView):
 
 class VideoCreateView(generics.ListCreateAPIView):
     """
-    Generic API View for Video.
+        get:
+        Return a list of all existing videos.
+
+        post:
+        Create an new video.
     """
     lookup_field = 'id'
     serializer_class = VideoSerializer
@@ -60,13 +75,18 @@ class VideoCreateView(generics.ListCreateAPIView):
 
 class VideoRUDView(generics.RetrieveUpdateDestroyAPIView):
     """
-    Generic API View for : Retrieve, Update and Destroy Videos.
+        get:
+        Return the specific video.
+
+        put:
+        Update the specific video.
+
+        delete:
+        Delete the specific video.
     """
     lookup_field = 'id'
     serializer_class = VideoSerializer
     permission_classes = [IsOwnerOrReadOnly]
-
-    # queryset = Video.objects.all()
 
     # override base methods
     def get_queryset(self):
@@ -77,9 +97,27 @@ class VideoRUDView(generics.RetrieveUpdateDestroyAPIView):
     #     return Video.objects.get(pk=pk)
 
 
+class CommentList(generics.ListAPIView):
+    """
+        get:
+        Return a list of all existing Comments.
+    """
+    lookup_field = 'id'
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        queryset = Comment.objects.all()
+        return queryset
+
+
 class CommentCreateView(generics.ListCreateAPIView):
     """
-    Generic API View for Comment.
+        get:
+        Return a list of Comments of the publication with (pk=publication_id).
+
+        post:
+        Create a new Comment for the publication with ( pk=publication_id ).
+
     """
     lookup_field = 'id'
     serializer_class = CommentSerializer
@@ -88,16 +126,22 @@ class CommentCreateView(generics.ListCreateAPIView):
         queryset = Comment.objects.filter(publication=self.kwargs.get('publication_id'))
         return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(publication=get_object_or_404(Publication, pk=self.kwargs.get('publication_id')))
+
 
 class CommentRUDView(generics.RetrieveUpdateDestroyAPIView):
     """
-    Generic API View for : Retrieve, Update and Destroy Comments.
+        get:
+            Return the comment with ( pk=id ) of the publication with ( pk=publication_id ).
+        put:
+            Update (if you are owner) the comment with ( pk=id ) of the publication with ( pk=publication_id ).
+        delete:
+            Delete (if you are owner) the comment with ( pk=id ) of the publication with ( pk=publication_id ).
     """
     lookup_field = 'id'
     serializer_class = CommentSerializer
     permission_classes = [IsOwnerOrReadOnly]
-
-    # queryset = Comment.objects.all()
 
     # override base methods
     def get_queryset(self):

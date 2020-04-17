@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from feeds.models import Article, Video, Comment
+from ..models import Article, Video, Comment
+from attachments.api.serializers import AttachmentSerializer
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -8,6 +9,9 @@ class ArticleSerializer(serializers.ModelSerializer):
         1. Convert data to valid JSON format.
         2. Validate data passed and sent.
     """
+
+    attachment = AttachmentSerializer(required=True)
+
     class Meta:
         model = Article
         fields = [
@@ -47,6 +51,8 @@ class CommentSerializer(serializers.ModelSerializer):
     """
     Comment Serializer.
     """
+
+    publication = serializers.ReadOnlyField(source='publication.id')
 
     class Meta:
         model = Comment

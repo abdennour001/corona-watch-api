@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from attachments.models import Attachment
-from geolocation.models import Location
+from geolocation.models import Town
 
 # Create your models here.
 
@@ -14,7 +14,7 @@ class SuspectedCase(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    town = models.ForeignKey(Town, on_delete=models.CASCADE)
     users = models.ManyToManyField(get_user_model())
 
     def __str__(self):

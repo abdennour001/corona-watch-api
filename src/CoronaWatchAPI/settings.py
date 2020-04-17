@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # rest api app
     'rest_framework',
+    # documentation app
+    "coreapi",
 
     # CoronaWatch API Apps
     'users.apps.UsersConfig',
@@ -143,8 +145,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+
     # 'DEFAULT_AUTHENTICATION_CLASSES': (
     #     'rest_framework.authentication.TokenAuthentication',
     #     'rest_framework.authentication.BasicAuthentication',
     # ),
 }
+
+API_VERSION = "v1.0.0"
