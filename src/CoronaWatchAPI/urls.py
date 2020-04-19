@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
 from django.conf import settings
 
-API_PREFIX = f'coronawatch-api/{settings.API_VERSION}'
+API_PREFIX = f'corona-watch-api/{settings.API_VERSION}'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
