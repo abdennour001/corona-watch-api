@@ -1,10 +1,19 @@
 from django.urls import path
-from .views import LocationListCreate, LocationRUD, RegionListCreate, RegionRUD, ReceptionCenterListCreate, ReceptionCenterRUD
+from .views import LocationList, LocationRetrieve, RegionListCreate, RegionRUD, ReceptionCenterListCreate, ReceptionCenterRUD, StateList, StateRetrieve, TownList, TownRetrieveUpdate
+
 
 urlpatterns = [
     # location urls
     path('locations/', LocationList.as_view(), name='locations-list'),
-    path('locations/<int:id>', LocationRUD.as_view(), name='locations-rud'),
+    path('locations/<int:id>', LocationRetrieve.as_view(), name='locations-retrieve'),
+
+    # state urls
+    path('states/', StateList.as_view(), name='states-list'),
+    path('states/<int:id>', StateRetrieve.as_view(), name='states-retrieve'),
+
+    # town urls
+    path('towns/', TownList.as_view(), name='towns-list'),
+    path('towns/<int:id>', TownRetrieveUpdate.as_view(), name='towns-retrieve-update'),
 
     # region urls
     path('regions/', RegionListCreate.as_view(), name='region-list'),

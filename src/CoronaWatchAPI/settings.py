@@ -153,4 +153,4 @@ REST_FRAMEWORK = {
     # ),
 }
 
-API_VERSION = "v1.0.0"
+API_VERSION = "v1"

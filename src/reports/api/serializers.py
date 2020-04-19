@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import SuspectedCase
+from ..models import SuspectedCase, Declared
 from attachments.api.serializers import AttachmentSerializer
 
 

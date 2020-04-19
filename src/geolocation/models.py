@@ -36,7 +36,7 @@ class Town(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "Town: [%s] %s death: %s, suspect: %s, sick: %s" % (self.postal_code, self.name, self.number_death, self.number_suspect, self.number_sick)
+        return "Town: [%s] %s, death: %s, suspect: %s, sick: %s" % (self.postal_code, self.name, self.number_death, self.number_suspect, self.number_sick)
 
 
 class Region(models.Model):
@@ -51,7 +51,7 @@ class Region(models.Model):
 
 class ReceptionCenter(models.Model):
     name = models.CharField(max_length=100)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    town = models.ForeignKey(Town, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
