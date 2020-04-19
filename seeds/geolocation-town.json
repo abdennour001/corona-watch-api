@@ -1,0 +1,21 @@
+[
+{
+  "model": "geolocation.town",
+  "pk": 1,
+  "fields": {
+    "name": "Tamest",
+    "postal_code": "01002",
+    "number_death": 4,
+    "number_suspect": 30000,
+    "number_sick": 2,
+    "number_confirmed_cases": 1,
+    "number_carrier": 1,
+    "number_recovered": 1,
+    "last_update": "2020-04-23T08:17:55Z",
+    "is_risked": false,
+    "is_validated": false,
+    "state": 1,
+    "location": 1
+  }
+}
+]

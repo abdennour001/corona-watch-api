@@ -1,0 +1,386 @@
+[
+  {
+    "model": "geolocation.state",
+    "pk": "1",
+    "fields": {
+      "name": "Adrar",
+      "code": "1"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "2",
+    "fields": {
+      "name": "Chlef",
+      "code": "2"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "3",
+    "fields": {
+      "name": "Laghouat",
+      "code": "3"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "4",
+    "fields": {
+      "name": "Oum El Bouaghi",
+      "code": "4"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "5",
+    "fields": {
+      "name": "Batna",
+      "code": "5"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "6",
+    "fields": {
+      "name": "B\u00e9ja\u00efa",
+      "code": "6"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "7",
+    "fields": {
+      "name": "Biskra",
+      "code": "7"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "8",
+    "fields": {
+      "name": "B\u00e9char",
+      "code": "8"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "9",
+    "fields": {
+      "name": "Blida",
+      "code": "9"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "10",
+    "fields": {
+      "name": "Bouira",
+      "code": "10"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "11",
+    "fields": {
+      "name": "Tamanrasset",
+      "code": "11"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "12",
+    "fields": {
+      "name": "T\u00e9bessa",
+      "code": "12"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "13",
+    "fields": {
+      "name": "Tlemcen",
+      "code": "13"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "14",
+    "fields": {
+      "name": "Tiaret",
+      "code": "14"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "15",
+    "fields": {
+      "name": "Tizi Ouzou",
+      "code": "15"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "16",
+    "fields": {
+      "name": "Alger",
+      "code": "16"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "17",
+    "fields": {
+      "name": "Djelfa",
+      "code": "17"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "18",
+    "fields": {
+      "name": "Jijel",
+      "code": "18"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "19",
+    "fields": {
+      "name": "S\u00e9tif",
+      "code": "19"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "20",
+    "fields": {
+      "name": "Sa\u00efda",
+      "code": "20"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "21",
+    "fields": {
+      "name": "Skikda",
+      "code": "21"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "22",
+    "fields": {
+      "name": "Sidi Bel Abb\u00e8s",
+      "code": "22"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "23",
+    "fields": {
+      "name": "Annaba",
+      "code": "23"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "24",
+    "fields": {
+      "name": "Guelma",
+      "code": "24"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "25",
+    "fields": {
+      "name": "Constantine",
+      "code": "25"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "26",
+    "fields": {
+      "name": "M\u00e9d\u00e9a",
+      "code": "26"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "27",
+    "fields": {
+      "name": "Mostaganem",
+      "code": "27"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "28",
+    "fields": {
+      "name": "M'Sila",
+      "code": "28"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "29",
+    "fields": {
+      "name": "Mascara",
+      "code": "29"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "30",
+    "fields": {
+      "name": "Ouargla",
+      "code": "30"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "31",
+    "fields": {
+      "name": "Oran",
+      "code": "31"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "32",
+    "fields": {
+      "name": "El Bayadh",
+      "code": "32"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "33",
+    "fields": {
+      "name": "Illizi",
+      "code": "33"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "34",
+    "fields": {
+      "name": "Bordj Bou Arreridj",
+      "code": "34"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "35",
+    "fields": {
+      "name": "Boumerd\u00e8s",
+      "code": "35"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "36",
+    "fields": {
+      "name": "El Tarf",
+      "code": "36"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "37",
+    "fields": {
+      "name": "Tindouf",
+      "code": "37"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "38",
+    "fields": {
+      "name": "Tissemsilt",
+      "code": "38"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "39",
+    "fields": {
+      "name": "El Oued",
+      "code": "39"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "40",
+    "fields": {
+      "name": "Khenchela",
+      "code": "40"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "41",
+    "fields": {
+      "name": "Souk Ahras",
+      "code": "41"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "42",
+    "fields": {
+      "name": "Tipaza",
+      "code": "42"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "43",
+    "fields": {
+      "name": "Mila",
+      "code": "43"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "44",
+    "fields": {
+      "name": "A\u00efn Defla",
+      "code": "44"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "45",
+    "fields": {
+      "name": "Na\u00e2ma",
+      "code": "45"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "46",
+    "fields": {
+      "name": "A\u00efn T\u00e9mouchent",
+      "code": "46"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "47",
+    "fields": {
+      "name": "Gharda\u00efa",
+      "code": "47"
+    }
+  },
+  {
+    "model": "geolocation.state",
+    "pk": "48",
+    "fields": {
+      "name": "Relizane",
+      "code": "48"
+    }
+  }
+]

@@ -1,0 +1,18 @@
+[
+{
+  "model": "geolocation.state",
+  "pk": 1,
+  "fields": {
+    "name": "Adrar",
+    "code": 1
+  }
+},
+{
+  "model": "geolocation.state",
+  "pk": 2,
+  "fields": {
+    "name": "Batna",
+    "code": 5
+  }
+}
+]
