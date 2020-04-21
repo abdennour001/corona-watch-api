@@ -1,6 +1,7 @@
 from rest_framework import generics
 from ..models import Location, Region, ReceptionCenter, State, Town
 from .serializers import LocationSerializer, RegionSerializer, ReceptionCenterSerializer, StateSerializer, TownSerializer
+from django.db.models import Q
 
 
 class LocationList(generics.ListAPIView):
@@ -89,7 +90,22 @@ class TownList(generics.ListAPIView):
     """
     lookup_field = 'id'
     serializer_class = TownSerializer
-    queryset = Town.objects.all()
+
+    def get_queryset(self):
+        valid_bool = {
+            'true': [True],
+            'false': [False],
+            None: [True, False]
+        }
+        queryset = Town.objects.all()
+        query_is_risked = self.request.GET.get('risked')
+        query_is_validated = self.request.GET.get('validated')
+        if query_is_risked or query_is_validated is not None:
+            queryset = queryset.filter(
+                Q(is_risked__in=valid_bool[query_is_risked]),
+                Q(is_validated__in=valid_bool[query_is_validated])
+            ).distinct()
+        return queryset
 
 
 class TownRetrieveUpdate(generics.RetrieveUpdateAPIView):
@@ -123,3 +139,16 @@ class StateRetrieve(generics.RetrieveAPIView):
     lookup_field = 'id'
     serializer_class = StateSerializer
     queryset = State.objects.all()
+
+
+class StateTownList(generics.ListAPIView):
+    """
+    get:
+    Get the list of towns of the state with ( pk="state_id" ).
+    """
+    lookup_field = 'id'
+    serializer_class = TownSerializer
+
+    def get_queryset(self):
+        queryset = Town.objects.filter(state=self.kwargs.get('state_id'))
+        return queryset

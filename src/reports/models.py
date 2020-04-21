@@ -23,7 +23,7 @@ class SuspectedCase(models.Model):
 
 class Declared(models.Model):
     date_declaration = models.DateTimeField(auto_now_add=True)
-    id_treated = models.DateTimeField()
+    is_treated = models.BooleanField(default=False)
     attachment = models.OneToOneField(
         Attachment,
         on_delete=models.CASCADE,

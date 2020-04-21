@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from ..models import Article, Video, Comment
+from ..models import Article, Video, Comment, Publication
 from attachments.api.serializers import AttachmentSerializer
+from attachments.models import Attachment
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -19,6 +20,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             'title',
             'content',
             'is_deleted',
+            'is_validated',
             'publication_date',
             'attachment',
             'editor'
@@ -29,11 +31,37 @@ class ArticleSerializer(serializers.ModelSerializer):
         # some logic to validate the title value.
         return value
 
+    def create(self, validated_data):
+        attachment_data = validated_data.pop('attachment')
+        attachment = Attachment.objects.create(**attachment_data)
+
+        article = Article.objects.create(attachment=attachment, **validated_data)
+        return article
+
+    def update(self, instance, validated_data):
+        article = Article.objects.update(**validated_data)
+        return article
+
+
+class ArticleUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = [
+            'id',
+            'title',
+            'content',
+            'is_deleted',
+            'is_validated',
+        ]
+
 
 class VideoSerializer(serializers.ModelSerializer):
     """
     Video Serializer.
     """
+
+    attachment = AttachmentSerializer(required=True)
+
     class Meta:
         model = Video
         fields = [
@@ -41,9 +69,22 @@ class VideoSerializer(serializers.ModelSerializer):
             'title',
             'description',
             'is_deleted',
+            'is_validated',
             'publication_date',
             'attachment',
             'user',
+        ]
+
+
+class VideoUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = [
+            'id',
+            'title',
+            'description',
+            'is_deleted',
+            'is_validated',
         ]
 
 
@@ -64,3 +105,9 @@ class CommentSerializer(serializers.ModelSerializer):
             'user',
             'publication',
         ]
+
+
+class PublicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Publication
+        fields = '__all__'

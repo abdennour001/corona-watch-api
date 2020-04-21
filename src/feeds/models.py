@@ -12,6 +12,7 @@ class Publication(models.Model):
     title = models.CharField(max_length=200)
     publication_date = models.DateTimeField()
     is_deleted = models.BooleanField(default=False)
+    is_validated = models.BooleanField(default=False)
 
     def __str__(self):
         return "%d, %s, %s" % (self.pk, self.title, self.publication_date.date())
