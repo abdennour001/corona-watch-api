@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import UserList, UserDetail, UserMedicalProfileDetail, UserCreate
 
-
 urlpatterns = [
 
     # POST to this url to make new user
@@ -16,4 +15,6 @@ urlpatterns = [
 
     # GET to this url to get user medical profile
     path('<username>/profile', UserMedicalProfileDetail.as_view(), name='medical profile of this user'),
+
+    # TODO: update medical profile
 ]
