@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class User(AbstractUser):
@@ -40,14 +41,20 @@ class MedicalProfile(models.Model):
 # whenever user is created, give it a medical profile and a token
 @receiver(post_save, sender=User)
 def create_user_medical_profile(sender, instance, created, **kwargs):
-    if created and instance.role == 'final user':
+    try:
+        if created and instance.role == 'final user':
+            instance.medicalprofile.save()
+    except ObjectDoesNotExist:
         MedicalProfile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_user_medical_profile(sender, instance, **kwargs):
-    if instance.role == 'final user':
-        instance.medicalprofile.save()
+    try:
+        if instance.role == 'final user':
+            instance.medicalprofile.save()
+    except ObjectDoesNotExist:
+        MedicalProfile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
