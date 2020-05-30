@@ -11,11 +11,13 @@ class ArticleSerializer(serializers.ModelSerializer):
         2. Validate data passed and sent.
     """
 
+    url = serializers.SerializerMethodField(read_only=True)
     attachment = AttachmentSerializer(required=True)
 
     class Meta:
         model = Article
         fields = [
+            'url',
             'id',
             'title',
             'content',
@@ -41,6 +43,10 @@ class ArticleSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         article = Article.objects.update(**validated_data)
         return article
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
 
 
 class ArticleUpdateSerializer(serializers.ModelSerializer):

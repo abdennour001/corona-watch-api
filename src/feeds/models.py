@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from attachments.models import Attachment
+from django.urls import NoReverseMatch
+from rest_framework.reverse import reverse as api_reverse
 
 # Create your models here.
 
@@ -37,6 +39,9 @@ class Article(Publication):
     @property
     def owner(self):
         return self.editor
+
+    def get_api_url(self, request=None):
+        return api_reverse("api-feeds:article-rd", kwargs={'id': self.pk}, request=request)
 
 
 class Video(Publication):

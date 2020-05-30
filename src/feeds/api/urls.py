@@ -10,12 +10,12 @@ from .views import ArticleRetrieveDeleteView, \
     CommentList, \
     ValidatePublication, PublicationsList
 
+app_name = 'feeds'
 
 urlpatterns = [
     # publications urls
     path('publications/', PublicationsList.as_view(), name='publication-list'),
     path('publications/validate/<publication_id>', ValidatePublication.as_view(), name='publication-validate'),
-
 
     # articles urls
     path('articles/', ArticleCreateView.as_view(), name='article-create'),

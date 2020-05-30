@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # rest api app
     'rest_framework',
+    'rest_framework.authtoken',
     # documentation app
     "coreapi",
 
@@ -150,10 +151,11 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework.authentication.TokenAuthentication',
-    #     'rest_framework.authentication.BasicAuthentication',
-    # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
 }
 
 API_VERSION = "v1"
+YOUTUBE_API_KEY = "AIzaSyBStHadLqDsHFRW0r_qsGA-8y7mtN-wIOs"

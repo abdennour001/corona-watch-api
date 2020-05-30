@@ -23,6 +23,7 @@ class ArticleCreateView(generics.ListCreateAPIView):
     """
     lookup_field = 'id'
     serializer_class = ArticleSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
         queryset = Article.objects.all()
@@ -36,6 +37,9 @@ class ArticleCreateView(generics.ListCreateAPIView):
 
     # def perform_create(self, serializer):
     #     serializer.save(self.request.user)
+
+    def get_serializer_context(self):
+        return {"request": self.request}
 
 
 class ArticleRetrieveDeleteView(generics.RetrieveDestroyAPIView):
@@ -57,6 +61,9 @@ class ArticleRetrieveDeleteView(generics.RetrieveDestroyAPIView):
     # def get_object(self):
     #     pk = self.kwargs.get("pk")
     #     return Article.objects.get(pk=pk)
+
+    def get_serializer_context(self):
+        return {"request": self.request}
 
 
 class ArticleUpdateView(generics.RetrieveUpdateAPIView):
