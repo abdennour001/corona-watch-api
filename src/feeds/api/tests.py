@@ -64,3 +64,13 @@ class ArticleTestCase(APITestCase):
         response_data = list(filter(lambda a: a.pop('url', None), response_data))
         response_data = list(filter(lambda a: a.pop('attachment', None), response_data))
         self.assertEqual(article_serializer_data, response_data)
+
+    def test_article_object_auth(self):
+        """
+        Test to verify auth in article object bundle
+        :return:
+        """
+        self.client.login(username="adsad", password="adsda")
+        url = api_reverse("api-feeds:article-create")
+        response = self.client.get(url)
+        self.assertEqual(403, response.status_code)
