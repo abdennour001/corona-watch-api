@@ -10,6 +10,7 @@ from .serializers import ArticleSerializer, \
     ArticleUpdateSerializer, \
     VideoUpdateSerializer, PublicationSerializer
 from .permissions import IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404, Http404
 
 
@@ -52,7 +53,7 @@ class ArticleRetrieveDeleteView(generics.RetrieveDestroyAPIView):
     """
     lookup_field = 'id'
     serializer_class = ArticleSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticated]
 
     # override base methods
     def get_queryset(self):
@@ -206,7 +207,7 @@ class ValidatePublication(views.APIView):
     """
     permission_classes = (IsOwnerOrReadOnly,)
 
-    def get_publication(self, publication_id):
+    def get_publication65(self, publication_id):
         try:
             publication = Publication.objects.get(pk=publication_id)
         except Publication.DoesNotExist:
