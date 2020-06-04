@@ -1,35 +1,44 @@
-from django.conf import settings
-from rest_framework.views import APIView
+from rest_framework import generics, views, status
 from rest_framework.response import Response
-from rest_framework.utils import json
-import requests
+from django.db.models import Q
+from .serializers import YoutubeVideoSerializer, YoutubeVideo
+from django.shortcuts import Http404
 
 
-class YoutubeSearch(APIView):
+class YoutubeVideosList(generics.ListAPIView):
     """
-    View to search in Youtube videos using keywords like (#covide-19, #covid, ...)
+        get:
+        Return a list of all existing videos.
     """
-    def get(self, request, format=None):
-        """
-        Return list of youtube search videos.
-        :return:
-        """
-        response = []
-        api_key = settings.YOUTUBE_API_KEY
-        query = request.GET.get('q')
-        max_results = request.GET.get('maxResults')
-        youtube_api_response = requests.get(
-            f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={query}&key={api_key}&type=video&maxResults={max_results}"
-        )
-        for item in youtube_api_response.json()['items']:
-            response.append({
-                "video_embed_url": f"http://www.youtube.com/embed/{item.get('id').get('videoId')}",
-                "video_id": item.get('id').get('videoId'),
-                "video_metadata": {
-                    'published_at': item.get("snippet").get("publishedAt"),
-                    'title': item.get("snippet").get("title"),
-                    'description': item.get("snippet").get("description"),
-                    'channel_title': item.get("snippet").get("channelTitle"),
-                }
-            })
-        return Response(json.loads(json.dumps(response)))
+    lookup_field = 'id'
+    serializer_class = YoutubeVideoSerializer
+    permission_classes = []
+
+    def get_queryset(self):
+        queryset = YoutubeVideo.objects.all()
+        query = self.request.GET.get('validated')
+        if query is not None:
+            queryset = queryset.filter(
+                is_validated__exact=True if query in ['true', 'yes', '1'] else False if query in ['false', 'no', '0'] else False
+            ).distinct()
+        return queryset
+
+
+class ValidateYoutubeVideo(views.APIView):
+    """
+    Validate a youtube video
+    """
+
+    @staticmethod
+    def get_video(video_id):
+        try:
+            video = YoutubeVideo.objects.get(pk=video_id)
+        except YoutubeVideo.DoesNotExist:
+            raise Http404
+        return video
+
+    def put(self, request, video_id):
+        video = self.get_video(video_id)
+        video.is_validated = not video.is_validated
+        video.save()
+        return Response(status=status.HTTP_201_CREATED)

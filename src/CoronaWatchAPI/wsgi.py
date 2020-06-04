@@ -10,7 +10,10 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
+from scrapers.api import scripts
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CoronaWatchAPI.settings')
+
+scripts.run()
 
 application = get_wsgi_application()

@@ -207,7 +207,7 @@ class ValidatePublication(views.APIView):
     """
     permission_classes = (IsOwnerOrReadOnly,)
 
-    def get_publication65(self, publication_id):
+    def get_publication(self, publication_id):
         try:
             publication = Publication.objects.get(pk=publication_id)
         except Publication.DoesNotExist:

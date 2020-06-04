@@ -94,7 +94,8 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
-        'PORT': '8889'
+        'PORT': '8889',
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
@@ -158,4 +159,16 @@ REST_FRAMEWORK = {
 }
 
 API_VERSION = "v1"
-YOUTUBE_API_KEY = "AIzaSyBStHadLqDsHFRW0r_qsGA-8y7mtN-wIOs"
+
+SCRAPERS_SETTINGS = {
+    'YOUTUBE': {
+        "YOUTUBE_API_KEY": "AIzaSyBStHadLqDsHFRW0r_qsGA-8y7mtN-wIOs",
+        "MAX_RESULTS": 200,
+        "QUERY_SET": (
+            "covid-19 الوباء وقاية",
+            "covid-19 pandemic الوباء",
+            "الوباء covid-19",
+            "مرض فيروس كورونا",
+        )
+    }
+}
