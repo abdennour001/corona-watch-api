@@ -9,6 +9,7 @@ class SuspectedCaseSerializer(serializers.ModelSerializer):
 
     SuspectedCase serializer.
     """
+    url = serializers.SerializerMethodField(read_only=True)
     attachment = AttachmentSerializer(required=True)
 
     class Meta:
@@ -28,6 +29,10 @@ class SuspectedCaseSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         suspected_case = SuspectedCase.objects.update(**validated_data)
         return suspected_case
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
 
 
 class SuspectedCaseUpdateSerializer(serializers.ModelSerializer):

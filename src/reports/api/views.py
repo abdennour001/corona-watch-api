@@ -1,4 +1,6 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
 from ..models import SuspectedCase, Declared
 from .serializers import SuspectedCaseSerializer, SuspectedCaseUpdateSerializer, DeclaredSerializer, DeclaredUpdateSerializer
 
@@ -14,6 +16,10 @@ class SuspectedCaseCreateListView(generics.ListCreateAPIView):
     lookup_field = 'id'
     serializer_class = SuspectedCaseSerializer
     queryset = SuspectedCase.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def get_serializer_context(self):
+        return {"request": self.request}
 
 
 class SuspectedCaseRetrieveDeleteView(generics.RetrieveDestroyAPIView):
@@ -27,6 +33,9 @@ class SuspectedCaseRetrieveDeleteView(generics.RetrieveDestroyAPIView):
     lookup_field = 'id'
     serializer_class = SuspectedCaseSerializer
     queryset = SuspectedCase.objects.all()
+
+    def get_serializer_context(self):
+        return {"request": self.request}
 
 
 class SuspectedCaseUpdateView(generics.UpdateAPIView):

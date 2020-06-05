@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import SuspectedCaseCreateListView, SuspectedCaseRetrieveDeleteView, SuspectedCaseUpdateView, DeclaredRetrieveDeleteView, DeclaredCreateListView, DeclaredUpdateView
 
+app_name = 'reports'
 
 urlpatterns = [
     # suspected cases urls

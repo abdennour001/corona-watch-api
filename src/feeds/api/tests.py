@@ -1,7 +1,6 @@
 from rest_framework.test import APITestCase
 from rest_framework.reverse import reverse as api_reverse
 from rest_framework import status
-from rest_framework.authtoken.models import Token
 
 from django.contrib.auth import get_user_model
 
@@ -19,6 +18,7 @@ class ArticleTestCase(APITestCase):
         user_obj = User(username="admin", email="abdennour@gmail.com")
         user_obj.set_password("admin")
         user_obj.save()
+        self.token = user_obj.auth_token.key
 
         self.article = Article.objects.create(
             title="test title",
@@ -41,8 +41,7 @@ class ArticleTestCase(APITestCase):
         self.assertEqual(article_count, 1)
 
     def test_get_articles_list(self):
-        # self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        self.client.login(username="admin", password="admin")
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
         data = {}
         url = api_reverse("api-feeds:article-create")
         response = self.client.get(url, data, format="json")
@@ -52,7 +51,7 @@ class ArticleTestCase(APITestCase):
         """
         Test to verify article object bundle
         """
-        self.client.login(username="admin", password="admin")
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
         url = api_reverse("api-feeds:article-create")
         response = self.client.get(url)
 
@@ -70,7 +69,6 @@ class ArticleTestCase(APITestCase):
         Test to verify auth in article object bundle
         :return:
         """
-        self.client.login(username="adsad", password="adsda")
         url = api_reverse("api-feeds:article-create")
         response = self.client.get(url)
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(status.HTTP_401_UNAUTHORIZED, response.status_code)

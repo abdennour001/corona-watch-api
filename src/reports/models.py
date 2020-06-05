@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from attachments.models import Attachment
 from geolocation.models import Town
+from rest_framework.reverse import reverse as api_reverse
 
 # Create your models here.
 
@@ -19,6 +20,9 @@ class SuspectedCase(models.Model):
 
     def __str__(self):
         return "%s, " % self.date
+
+    def get_api_url(self, request=None):
+        return api_reverse("api-reports:suspected-cases-RUD", kwargs={'id': self.pk}, request=request)
 
 
 class Declared(models.Model):

@@ -24,7 +24,7 @@ class ArticleCreateView(generics.ListCreateAPIView):
     """
     lookup_field = 'id'
     serializer_class = ArticleSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticated]
 
     def get_queryset(self):
         queryset = Article.objects.all()
