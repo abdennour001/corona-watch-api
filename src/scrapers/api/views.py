@@ -1,4 +1,5 @@
 from rest_framework import generics, views, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.db.models import Q
 from .serializers import YoutubeVideoSerializer, YoutubeVideo
@@ -12,7 +13,7 @@ class YoutubeVideosList(generics.ListAPIView):
     """
     lookup_field = 'id'
     serializer_class = YoutubeVideoSerializer
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = YoutubeVideo.objects.all()
@@ -22,6 +23,9 @@ class YoutubeVideosList(generics.ListAPIView):
                 is_validated__exact=True if query in ['true', 'yes', '1'] else False if query in ['false', 'no', '0'] else False
             ).distinct()
         return queryset
+
+    def get_serializer_context(self):
+        return {"request": self.request}
 
 
 class ValidateYoutubeVideo(views.APIView):

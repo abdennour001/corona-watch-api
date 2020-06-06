@@ -1,4 +1,6 @@
 from django.db import models
+from rest_framework.reverse import reverse as api_reverse
+
 
 # Create your models here.
 
@@ -18,3 +20,6 @@ class YoutubeVideo(models.Model):
 
     def __str__(self):
         return "%s, %s" % (self.title, self.is_validated)
+
+    def get_api_url(self, request=None):
+        return api_reverse("api-feeds:article-rd", kwargs={'id': self.pk}, request=request)
