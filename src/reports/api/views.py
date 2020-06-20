@@ -2,7 +2,8 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from ..models import SuspectedCase, Declared
-from .serializers import SuspectedCaseSerializer, SuspectedCaseUpdateSerializer, DeclaredSerializer, DeclaredUpdateSerializer
+from .serializers import SuspectedCaseSerializer, SuspectedCaseUpdateSerializer, DeclaredSerializer, \
+    DeclaredUpdateSerializer, SuspectedCaseSerializerUploaded
 
 
 class SuspectedCaseCreateListView(generics.ListCreateAPIView):
@@ -15,6 +16,20 @@ class SuspectedCaseCreateListView(generics.ListCreateAPIView):
     """
     lookup_field = 'id'
     serializer_class = SuspectedCaseSerializer
+    queryset = SuspectedCase.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def get_serializer_context(self):
+        return {"request": self.request}
+
+
+class SuspectedCaseCreateFromUploaded(generics.CreateAPIView):
+    """
+    post:
+    Report a new suspected case in the system, the attachment file .
+    """
+    lookup_field = 'id'
+    serializer_class = SuspectedCaseSerializerUploaded
     queryset = SuspectedCase.objects.all()
     permission_classes = [IsAuthenticated]
 
@@ -82,3 +97,4 @@ class DeclaredUpdateView(generics.UpdateAPIView):
     lookup_field = 'id'
     serializer_class = DeclaredUpdateSerializer
     queryset = Declared.objects.all()
+
