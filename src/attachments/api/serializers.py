@@ -33,7 +33,6 @@ class AttachmentSerializerUploaded(serializers.ModelSerializer):
         """
         Check that file is a string url.
         """
-        print("XXXXXX")
         if not isinstance(file, str):
             raise serializers.ValidationError("file must be a string.")
         return file

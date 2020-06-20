@@ -53,7 +53,6 @@ class SuspectedCaseSerializerUploaded(serializers.ModelSerializer):
         attachment.extension = attachment_data["extension"]
         attachment.file = attachment_data["file"]
         attachment.save()
-        #attachment = Attachment.objects.create(**attachment_data)
 
         users_data = validated_data.pop('users')
 
@@ -99,6 +98,35 @@ class DeclaredSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         suspected_case = SuspectedCase.objects.update(**validated_data)
         return suspected_case
+
+
+class DeclaredSerializerUploaded(serializers.ModelSerializer):
+    """
+    Declared serializer from uploaded video.
+    """
+    attachment = AttachmentSerializerUploaded(required=True)
+
+    class Meta:
+        model = Declared
+        fields = "__all__"
+
+    def create(self, validated_data):
+        attachment_data = validated_data.pop('attachment')
+        attachment = Attachment()
+        attachment.nom = attachment_data["nom"]
+        attachment.extension = attachment_data["extension"]
+        attachment.file = attachment_data["file"]
+        attachment.save()
+
+        users_data = validated_data.pop('users')
+
+        declared = Declared.objects.create(attachment=attachment, **validated_data)
+        declared.users.add(*users_data)
+        return declared
+
+    def update(self, instance, validated_data):
+        declared = Declared.objects.update(**validated_data)
+        return declared
 
 
 class DeclaredUpdateSerializer(serializers.ModelSerializer):

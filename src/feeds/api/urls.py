@@ -23,7 +23,7 @@ urlpatterns = [
     path('articles/update/<id>', ArticleUpdateView.as_view(), name='article-update'),
 
     # videos urls
-    path('videos/', VideoCreateView.as_view(), name='video-create'),
+    path('videos/v2/', VideoCreateView.as_view(), name='video-create'),
     path('videos/<id>/', VideoRetrieveDeleteView.as_view(), name='video-rd'),
     path('videos/update/<id>/', VideoUpdateView.as_view(), name='video-update'),
 

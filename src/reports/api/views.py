@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from ..models import SuspectedCase, Declared
 from .serializers import SuspectedCaseSerializer, SuspectedCaseUpdateSerializer, DeclaredSerializer, \
-    DeclaredUpdateSerializer, SuspectedCaseSerializerUploaded
+    DeclaredUpdateSerializer, SuspectedCaseSerializerUploaded, DeclaredSerializerUploaded
 
 
 class SuspectedCaseCreateListView(generics.ListCreateAPIView):
@@ -74,6 +74,20 @@ class DeclaredCreateListView(generics.ListCreateAPIView):
     lookup_field = 'id'
     serializer_class = DeclaredSerializer
     queryset = Declared.objects.all()
+
+
+class DeclaredCreateFromUploaded(generics.CreateAPIView):
+    """
+    post:
+    Report a new declared case in the system, the attachment file.
+    """
+    lookup_field = 'id'
+    serializer_class = DeclaredSerializerUploaded
+    queryset = Declared.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def get_serializer_context(self):
+        return {"request": self.request}
 
 
 class DeclaredRetrieveDeleteView(generics.RetrieveDestroyAPIView):

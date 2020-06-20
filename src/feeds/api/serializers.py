@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..models import Article, Video, Comment, Publication
-from attachments.api.serializers import AttachmentSerializer
+from attachments.api.serializers import AttachmentSerializer, AttachmentSerializerUploaded
 from attachments.models import Attachment
 
 
@@ -66,7 +66,7 @@ class VideoSerializer(serializers.ModelSerializer):
     Video Serializer.
     """
 
-    attachment = AttachmentSerializer(required=True)
+    attachment = AttachmentSerializerUploaded(required=True)
 
     class Meta:
         model = Video
@@ -80,6 +80,21 @@ class VideoSerializer(serializers.ModelSerializer):
             'attachment',
             'user',
         ]
+
+    def create(self, validated_data):
+        attachment_data = validated_data.pop('attachment')
+        attachment = Attachment()
+        attachment.nom = attachment_data["nom"]
+        attachment.extension = attachment_data["extension"]
+        attachment.file = attachment_data["file"]
+        attachment.save()
+
+        video = Video.objects.create(attachment=attachment, **validated_data)
+        return video
+
+    def update(self, instance, validated_data):
+        video = Video.objects.update(**validated_data)
+        return video
 
 
 class VideoUpdateSerializer(serializers.ModelSerializer):
