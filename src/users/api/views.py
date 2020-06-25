@@ -1,3 +1,7 @@
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+
 from .serializers import UserSerializerCreate, UserSerializerOut, MedicalProfileSerializer
 from ..models import User, MedicalProfile
 from rest_framework import generics
@@ -58,3 +62,33 @@ class UserCreate(generics.CreateAPIView):
     Create a new user
     """
     serializer_class = UserSerializerCreate
+
+    def post(self, request, *args, **kwargs):
+        response = self.create(request, args, kwargs)
+        user = response.data
+        return Response({
+            "username": user.get("username"),
+            "email": user.get("email"),
+            "role": user.get("role"),
+        })
+
+
+class UserAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        response = {
+            'token': token.key,
+            'user_id': user.pk,
+            'username': user.username,
+            'email': user.email,
+            'role': user.role,
+        }
+        if user.image_url is not None:
+            response['image_url'] = user.image_url,
+        if user.role == "final user":
+            response['medical_profile'] = MedicalProfileSerializer(user.medicalprofile).data
+        return Response(response)
